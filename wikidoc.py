@@ -142,7 +142,7 @@ def readGlobalWikidocComments(file):
 			return (wikidocConfig, wkhtmltopdfConfig)
 
 	except Exception as error: 
-    		print "Could not read file " + file + " or did not find required wikidoc comments!\n"
+		print "Could not read file " + file + " or did not find required wikidoc comments!\n"
 		exit()
 
 	
@@ -208,7 +208,6 @@ if os.path.exists('_Sidebar.md'):
 	        files.append(entry)
         else:
             files.append(entry + ".md")
-# Use ordering after filename only if Sidebar-file does not exist
 else:
     files = sorted(getFilesInDirectory(pathWiki), key=lambda s: s.lower())
 
