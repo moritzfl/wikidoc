@@ -222,7 +222,7 @@ if os.path.exists(pathWiki + '_Sidebar.md'):
             
         # Only append to the list of files if a corresponding file exists
         if os.path.exists(pathWiki + filename):
-            files.append(pathWiki + filename)
+            files.append(filename)
         else:
             print("Ignoring _Sidebar.md-entry \"" + entry + "\"")
 else:
