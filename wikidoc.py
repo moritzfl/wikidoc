@@ -203,11 +203,11 @@ html.append(wikidocConfig["HEAD"])
 # Append Home.md
 html.append(parseFile(pathWiki, "Home.md"))
 
-if os.path.exists('_Sidebar.md'):
+if os.path.exists(pathWiki + '_Sidebar.md'):
     print 'Using _Sidebar.md for ordering of md-files'
     # Read entries in sidebar file to determine the ordering of chapters for the compiled 
     # pdf-document
-    with open('_Sidebar.md', 'r') as myfile:
+    with open(pathWiki + '_Sidebar.md', 'r') as myfile:
         sidebarContent = myfile.read().replace('\n', '')
 
     sidebarEntries = re.findall("\((.*?)\)", sidebarContent)
@@ -215,10 +215,16 @@ if os.path.exists('_Sidebar.md'):
     # make a list of the markdown-files referenced from the sidebar
     files = []
     for entry in sidebarEntries:
-        if entry.endswith(".md"):
-            files.append(entry)
+    	filename = entry
+        
+        if not entry.lower().endswith(".md"):
+            filename = filename + ".md"
+            
+        # Only append to the list of files if a corresponding file exists
+        if os.path.exists(pathWiki + filename):
+            files.append(pathWiki + filename)
         else:
-            files.append(entry + ".md")
+            print("Ignoring _Sidebar.md-entry \"" + entry + "\"")
 else:
     print 'Using alphabetical ordering of md-files'
     files = sorted(getFilesInDirectory(pathWiki), key=lambda s: s.lower())
